@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block start %}
+ 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  .text{
+    color: green;
+    font-weight: bold;
+  }
+</style>
+ 
+<div class="container mt-5">
+ 
+  <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h2 class="text  text-center"> Gerenciamento de Produtos </h2>
+     
+    <h>Atualizar Produto</h>
+    <hr>
+    <div class="form-group">
+      <label>Nome do produto</label>
+      <input name="produto_nome" value="{{produto.produto_nome}}" type="text" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label>Descrição do produto</label>
+      <textarea name="produto_descricao" value="" class="form-control"
+        required>{{produto.produto_descricao}}</textarea>
+    </div>
+    <div class="form-group">
+      <label>Imagem</label>
+      <input name="produto_imagem" type="file" class="form-control">
+    </div>
+ 
+    <button type="submit" class="btn btn-success">Atualizar Produto</button>
+  </form>
+ 
+ 
+</div>
+ 
+{% endblock %}

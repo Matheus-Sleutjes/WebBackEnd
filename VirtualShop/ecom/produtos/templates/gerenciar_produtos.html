@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block start %}
+#a página será criada dentro do bloco configurado pelo base.html
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  .text{
+    color: green;
+    font-weight: bold;
+  }
+</style>
+<div class="container mt-5">
+    
+    <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2 class="text  text-center"> Gerenciamento de Produtos (adicionar) </h2>
+        <br>
+        <h3>Adicionar Produto</h3>
+        <hr>
+        <div class="form-group">
+          <label>Nome do produto</label>
+          <input name="produto_nome" type="text" class="form-control"  required>
+         </div>
+        <div class="form-group">
+          <label>Descrição do produto</label>
+          <textarea name="produto_descricao" class="form-control" required ></textarea>
+        </div>
+        <div class="form-group">
+            <label>Imagem do Produto</label>
+            <input name="produto_imagem" type="file" class="form-control" >
+          </div>
+       
+        <button type="submit" class="btn btn-success">Adicionar Produto</button>
+      </form>
+ 
+      <hr>
+      <div class="class mt-5">
+        <form action="">
+ 
+          <div class="max-auto col-6">
+            <div class="form-group">
+              <label >Pesquisar Produto</label>
+              <input name="pesquisar" type="text" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary "> Pesquisar</button>
+          </form>
+        </div>
+      </div>
+      <table class="table mt-5">
+        <thead>
+ 
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome do Produto</th>
+            <th scope="col">Descrição do Produto</th>
+            <th scope="col">Imagem</th>
+            <th scope="col">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for produto in produtos %}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{produto.produto_nome}}</td>
+            <td>{{produto.produto_descricao}}</td>
+            <td>
+                <img src="/media/{{produto.produto_imagem}}" style="height: 100px;"> </td>
+                <td>
+                    <a href="/deletar_produto/{{produto.id }}" class="btn btn-danger m-2">Deletar</a>
+                    <a href="/atualizar_produto/{{produto.id }}" class="btn btn-success">Atualizar</a>
+                </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+       
+</div>
+{% endblock %}
